@@ -1,7 +1,9 @@
 import datetime
+import time
 
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import select, insert, delete, and_, update, join
+from fastapi_cache.decorator import cache
+from sqlalchemy import select, insert, delete, and_, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.auth.base_config import fastapi_users
@@ -17,6 +19,16 @@ router = APIRouter(
 )
 
 current_user = fastapi_users.current_user()
+
+
+@router.get('/redis_test')
+@cache(expire=60)
+async def redis_test():
+    time.sleep(5)
+
+    return {
+        'Status': 'Success'
+    }
 
 
 @router.get('/get_students_by_teacher_id')

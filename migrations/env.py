@@ -11,8 +11,9 @@ import sys
 sys.path.append(os.path.join(sys.path[0], 'src'))
 
 from src.config import DB_HOST, DB_PORT, DB_USER, DB_NAME, DB_PASS
-from src.auth.models import metadata as metadata_auth
-from src.tasks.models import metadata as metadata_tasks
+# from src.auth.models import metadata as metadata_auth
+# from src.tasks.models import metadata as metadata_tasks
+from src.database import metadata
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -34,7 +35,6 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = [metadata_auth, metadata_tasks]  # информация о существующих таблицах
 
 
 # other values from the config, defined by the needs of env.py,
@@ -58,7 +58,7 @@ def run_migrations_offline() -> None:
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
-        target_metadata=target_metadata,
+        target_metadata=metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
     )
@@ -82,7 +82,7 @@ def run_migrations_online() -> None:
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection, target_metadata=metadata
         )
 
         with context.begin_transaction():

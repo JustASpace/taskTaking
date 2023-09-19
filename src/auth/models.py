@@ -1,18 +1,11 @@
 from datetime import datetime
 
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
-from sqlalchemy import Table, Column, Integer, String, TIMESTAMP, Boolean, MetaData, Identity, ARRAY
+from sqlalchemy import Table, Column, Integer, String, TIMESTAMP, Boolean, Identity, ARRAY
 
 from src.database import Base
+from src.database import metadata
 
-metadata = MetaData()
-
-# role = Table(
-#     "role",
-#     metadata,
-#     Column("id", Integer, primary_key=True),
-#     Column("role", String, nullable=False),
-# )
 
 user = Table(
     "user",

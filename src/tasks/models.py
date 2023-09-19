@@ -1,8 +1,9 @@
 from sqlalchemy import Table, Column, Integer, String, ForeignKey, MetaData, Identity, TIMESTAMP, Float, Boolean
 
 from src.auth.models import user
+from src.database import metadata
 
-metadata = MetaData()
+
 task = Table(
     "task",
     metadata,
